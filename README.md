@@ -45,7 +45,7 @@ To get a local copy up and running follow these simple steps:
 1. Clone the repo
 
 ```sh
-git clone https://github.com/your_username/tripy.git
+git clone https://github.com/idobe2/NetworkingApp.git
 ```
 
 2. Install NPM packages
@@ -118,16 +118,6 @@ npx expo run:android --variant release
 - **POST** `/api/addPreferences`: Add user preferences.
 - **GET** `/api/getPreferences`: Get user preferences.
 
-## Contributing
-
-Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
 ## License
 
 Distributed under the MIT License. See `LICENSE` for more information.
@@ -136,4 +126,5 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 Tripy - [Tripy@tech-center.com](mailto:Tripy@tech-center.com)
 
-Project Link: [https://github.com/idobe2/NetworkingApp](https://github.com/idobe2/NetworkingApp)
+Project Links: [Frontend](https://github.com/idobe2/NetworkingApp) | [Backend](https://github.com/Bar1996/Tripy_Backend)
+
