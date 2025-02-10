@@ -124,7 +124,6 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ## Contact
 
-Tripy - [Tripy@tech-center.com](mailto:Tripy@tech-center.com)
-
-Project Links: [Frontend](https://github.com/idobe2/NetworkingApp) | [Backend](https://github.com/Bar1996/Tripy_Backend)
+📧 **Tripy Team** – [Tripy@tech-center.com](mailto:Tripy@tech-center.com)  
+🔗 **Backend Repo** – [Tripy Backend](https://github.com/Bar1996/Tripy_Backend)  
 
