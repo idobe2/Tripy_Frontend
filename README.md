@@ -26,6 +26,10 @@
 - **Plans Customization**: Replace activities and add restaurants to your plan easily.
 - **Activity Tracking**: Keep track of your activities and explore new features.
 
+## Demo Video
+
+👉 [Click here to watch the demo video](https://1drv.ms/v/c/be84aa2a7d5d1de8/EUczsxloJzJLpX2uT6-JmZMBBkqVrpLUOqp7IzPcAmT_ag)
+
 ## Screenshots
 
 <img src="https://i.postimg.cc/0y8q3SC7/Screenshot-20240724-210343-tripy.png" width="200" height="400">  <img src="https://i.postimg.cc/LXnqPXQZ/Screenshot-20240724-210413-tripy.png" width="200" height="400">  <img src="https://i.postimg.cc/mggTkn5P/Screenshot-20240724-211606-tripy.png" width="200" height="400">  <img src="https://i.postimg.cc/G3KNtpwj/Screenshot-20240724-211621-tripy.png" width="200" height="400">
