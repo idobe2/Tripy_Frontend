@@ -28,7 +28,9 @@
 
 ## Demo Video
 
-👉 [Click here to watch the demo video](https://1drv.ms/v/c/be84aa2a7d5d1de8/EUczsxloJzJLpX2uT6-JmZMBBkqVrpLUOqp7IzPcAmT_ag)
+🎥 Want to see Tripy in action?  
+👉 [Click here to watch the demo video](https://1drv.ms/v/c/be84aa2a7d5d1de8/EUczsxloJzJLpX2uT6-JmZMBBkqVrpLUOqp7IzPcAmT_ag)  
+The video provides an overview of the main features and flow of the Tripy app.
 
 ## Screenshots
 
