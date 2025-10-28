@@ -4,9 +4,9 @@ import {
   StyleSheet,
   View,
   ActivityIndicator,
-  ToastAndroid,
   Alert,
 } from "react-native";
+import { showSuccessToast, showErrorToast } from "../utils/toast";
 import { Text, IconButton } from "react-native-paper";
 import Background from "../components/Background";
 import Logo from "../components/Logo";
@@ -33,7 +33,10 @@ export default function LoginScreen({ navigation }) {
   const onLoginPressed = async () => {
     const state = await NetInfo.fetch();
     if (!state.isConnected) {
-      Alert.alert("No Internet Connection", "Please check your network connection and try again.");
+      Alert.alert(
+        "No Internet Connection",
+        "Please check your network connection and try again."
+      );
       return;
     }
 
@@ -50,20 +53,23 @@ export default function LoginScreen({ navigation }) {
         setIsAuthenticated(true);
         navigation.navigate("Root", { screen: "Home" });
         console.log("User has authenticated");
-        ToastAndroid.show("Welcome Back", ToastAndroid.SHORT);
+        showSuccessToast("Welcome Back");
       } else {
         const targetScreen = response.tranferTo;
         setIsAuthenticated(true);
         console.log("targetScreen:", targetScreen);
         if (targetScreen === "Preferences") {
           setIsAuthenticated(true);
-            const screenType = "login";
-            navigation.navigate("Root", { screen: targetScreen, params: { screenType } });
+          const screenType = "login";
+          navigation.navigate("Root", {
+            screen: targetScreen,
+            params: { screenType },
+          });
         }
       }
     } catch (error) {
       console.log("Error:", error);
-      ToastAndroid.show("An error occurred. Please try again.", ToastAndroid.SHORT);
+      showErrorToast("An error occurred. Please try again.");
     } finally {
       setIsLoading(false);
     }

@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { View, StyleSheet, ScrollView, TouchableOpacity, Linking } from "react-native";
+import {
+  View,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+  Linking,
+} from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import HomeBackground from "../components/HomeBackground";
 import Header from "../components/Header";
@@ -21,7 +27,7 @@ const About = () => {
   };
 
   const handleEmailPress = () => {
-    Linking.openURL('mailto:tripy@tech-center.com');
+    Linking.openURL("mailto:tripy@tech-center.com");
   };
 
   return (
@@ -32,23 +38,31 @@ const About = () => {
             <Header>Tripy</Header>
             <View style={styles.setting}>
               <Paragraph style={styles.settingText}>
-              🌍 Tripy is your ultimate travel app, helping you plan, organize, and enjoy your trips effortlessly.{'\n\n'}From finding the best activities{'\n'}to keeping track of your travel plans, Tripy makes your travel experience seamless and enjoyable. ✈️🧳
+                🌍 Tripy is your ultimate travel app, helping you plan,
+                organize, and enjoy your trips effortlessly.{"\n\n"}From finding
+                the best activities{"\n"}to keeping track of your travel plans,
+                Tripy makes your travel experience seamless and enjoyable. ✈️🧳
               </Paragraph>
             </View>
           </View>
-          
+
           <View style={styles.section}>
             <Header>Terms</Header>
-            <TouchableOpacity style={styles.setting} onPress={handlePrivacyPress}>
+            <TouchableOpacity
+              style={styles.setting}
+              onPress={handlePrivacyPress}
+            >
               <MaterialIcons name="privacy-tip" size={24} color="black" />
               <Paragraph style={styles.settingsLink}>Privacy Policy</Paragraph>
             </TouchableOpacity>
             <TouchableOpacity style={styles.setting} onPress={handleTermsPress}>
               <MaterialIcons name="description" size={24} color="black" />
-              <Paragraph style={styles.settingsLink}>Terms & Conditions</Paragraph>
+              <Paragraph style={styles.settingsLink}>
+                Terms & Conditions
+              </Paragraph>
             </TouchableOpacity>
           </View>
-          
+
           <View style={styles.section}>
             <Header>Talk to us</Header>
             <TouchableOpacity style={styles.setting} onPress={handleEmailPress}>
@@ -100,7 +114,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     color: theme.colors.primary,
     textDecorationLine: "underline",
-  }
+  },
 });
 
 export default About;

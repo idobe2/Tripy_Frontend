@@ -7,6 +7,7 @@ import {
   Text,
   TouchableOpacity,
 } from "react-native";
+import { showSuccessToast } from "../utils/toast";
 import Button from "../components/Button";
 import { theme } from "../core/theme";
 import userApi from "../api/UserApi";
@@ -50,7 +51,7 @@ const VerificationCodeModal = ({ visible, onClose, onConfirm, email }) => {
     try {
       const response = await userApi.sendVerificationCode(email);
       if (response.success) {
-        ToastAndroid.show("Verification code resent", ToastAndroid.TOP);
+        showSuccessToast("Verification code resent");
       } else {
         console.log("Failed to resend verification code:", response.error);
       }

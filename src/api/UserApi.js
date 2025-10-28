@@ -76,43 +76,83 @@ const userSignup = async (
 };
 
 const userGoogleLogin = async () => {
-  try {
-    await GoogleSignin.hasPlayServices();
-    const userInfo = await GoogleSignin.signIn();
-    console.log("Sign-in successful");
+  console.log("🟢 userGoogleLogin() started");
 
-    const credentialResponse = userInfo.idToken;
-    // Use let instead of const for potential reassignment
-    let googleToken = userInfo.accessToken;
+  try {
+    console.log("➡️ Checking Google Play Services...");
+    await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
+    console.log("✅ Google Play Services available");
+
+    console.log("➡️ Starting Google Sign-In flow...");
+    const userInfo = await GoogleSignin.signIn();
+    console.log("✅ Google Sign-In successful");
+    console.log("👤 User info:", JSON.stringify(userInfo, null, 2));
+
+    const credentialResponse = userInfo?.idToken;
+    let googleToken = userInfo?.accessToken;
+
+    console.log("📦 idToken:", credentialResponse ? "✅ exists" : "❌ missing");
+    console.log("📦 accessToken:", googleToken ? "✅ exists" : "❌ missing");
 
     if (!googleToken) {
-      // If accessToken is still undefined, manually get the accessToken
-      const tokens = await GoogleSignin.getTokens();
-      googleToken = tokens.accessToken;
+      console.log("⚠️ Access token missing, trying to fetch manually...");
+      try {
+        const tokens = await GoogleSignin.getTokens();
+        googleToken = tokens?.accessToken;
+        console.log(
+          "🔁 Fetched access token:",
+          googleToken ? "✅ success" : "❌ still missing"
+        );
+      } catch (tokenErr) {
+        console.log("❌ Failed to fetch access token manually:", tokenErr);
+      }
     }
 
-    // Sign in with Firebase using the Google credentials
-    const credential = GoogleAuthProvider.credential(credentialResponse);
-    await signInWithCredential(auth, credential);
+    if (!credentialResponse) {
+      throw new Error("❌ No idToken returned from Google Sign-In");
+    }
 
-    // Send credential and access token to the backend
+    console.log("➡️ Creating Firebase credential...");
+    const credential = GoogleAuthProvider.credential(credentialResponse);
+    console.log("✅ Firebase credential created");
+
+    console.log("➡️ Signing in with Firebase credential...");
+    await signInWithCredential(auth, credential);
+    console.log("✅ Firebase sign-in complete");
+
+    console.log("➡️ Sending tokens to backend...");
     const response = await clientApi.post("/googleSignIn", {
       credentialResponse,
       googleToken,
     });
+    console.log("✅ Backend response:", response.data);
+
+    console.log("➡️ Saving tokens...");
     await setToken(response.data.accessToken, response.data.refreshToken);
+    console.log("✅ Tokens saved successfully");
+
+    console.log("🎉 userGoogleLogin() completed successfully");
     return response;
   } catch (error) {
+    console.log("💥 ERROR in userGoogleLogin:", error);
+
     if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-      console.log("User cancelled the login flow");
+      console.log("🚫 User cancelled the login flow");
     } else if (error.code === statusCodes.IN_PROGRESS) {
-      console.log("Sign in is in progress");
+      console.log("⏳ Sign in is already in progress");
     } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-      console.log("Play services not available or outdated");
+      console.log("⚠️ Play services not available or outdated");
     } else {
-      console.log("Some other error happened", error);
+      console.log(
+        "🔥 Unhandled Google Sign-In error:",
+        error?.message || error
+      );
+      console.log("🔥 Full error object:", JSON.stringify(error, null, 2));
     }
+
     return { success: false, error };
+  } finally {
+    console.log("🔚 userGoogleLogin() finished (finally block)");
   }
 };
 

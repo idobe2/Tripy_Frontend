@@ -5,10 +5,10 @@ import {
   FlatList,
   Image,
   ActivityIndicator,
-  ToastAndroid,
   Linking,
   Alert,
 } from "react-native";
+import { showErrorToast } from "../utils/toast";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import placesApi from "../api/PlacesApi";
 import plansApi from "../api/PlanApi";
@@ -164,7 +164,7 @@ const NextActivities = ({ navigation }) => {
       if (error.response && error.response.status === 404) {
         setApiError(true);
       }
-      ToastAndroid.show("Failed to fetch activities", ToastAndroid.SHORT);
+      showErrorToast("Failed to fetch activities");
       console.error("Error fetching next activities:", error);
     }
     setLoading(false);
@@ -199,10 +199,7 @@ const NextActivities = ({ navigation }) => {
 
   const openGoogleMapsRoute = () => {
     if (activities.length === 0) {
-      ToastAndroid.show(
-        "No activities to show in Google Maps",
-        ToastAndroid.SHORT
-      );
+      showErrorToast("No activities to show in Google Maps");
       return;
     }
     const baseUrl = "https://www.google.com/maps/dir/?api=1&travelmode=driving";

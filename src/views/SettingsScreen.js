@@ -5,11 +5,11 @@ import {
   StyleSheet,
   ScrollView,
   ActivityIndicator,
-  ToastAndroid,
   Alert,
   Linking,
   TouchableOpacity,
 } from "react-native";
+import { showSuccessToast, showErrorToast } from "../utils/toast";
 import React from "react";
 import Button from "../components/Button";
 import userApi from "../api/UserApi";
@@ -60,10 +60,7 @@ const Settings = ({ navigation }) => {
         setIsAuthenticated(false);
       }
       handleResetCache();
-      ToastAndroid.show(
-        "Goodbye 👋, See you again soon 😊",
-        ToastAndroid.SHORT
-      );
+      showSuccessToast("Goodbye 👋, See you again soon 😊");
     } catch (err) {
       console.log("Logout failed " + err);
     } finally {
@@ -91,7 +88,7 @@ const Settings = ({ navigation }) => {
       const response = await userApi.sendVerificationCode(email);
       console.log("response: ", response);
       if (response === "Verification email sent") {
-        ToastAndroid.show("Verification code sent", ToastAndroid.TOP);
+        showSuccessToast("Verification code sent");
         setIsVerificationCodeModalVisible(true);
       } else {
         console.log("Failed to send verification code:", response.error);
@@ -116,7 +113,7 @@ const Settings = ({ navigation }) => {
         "User data, plans, preferences, and authentication deleted successfully"
       ) {
         console.log("Account deleted successfully");
-        ToastAndroid.show("Account deleted successfully", ToastAndroid.TOP);
+        showSuccessToast("Account deleted successfully");
         setIsAuthenticated(false);
       } else {
         Alert.alert("The code you entered is incorrect. Please try again.");
@@ -140,7 +137,7 @@ const Settings = ({ navigation }) => {
       );
       if (response.success) {
         console.log("Password changed successfully");
-        ToastAndroid.show("Password changed successfully", ToastAndroid.TOP);
+        showSuccessToast("Password changed successfully");
       } else {
         console.log("Password change failed:", response.error);
       }
@@ -165,10 +162,10 @@ const Settings = ({ navigation }) => {
     setIsResetCacheLoading(true);
     try {
       await AsyncStorage.clear();
-      ToastAndroid.show("Cache has been reset", ToastAndroid.SHORT);
+      showSuccessToast("Cache has been reset");
     } catch (error) {
       console.error("Error resetting cache:", error);
-      ToastAndroid.show("Failed to reset cache", ToastAndroid.SHORT);
+      showErrorToast("Failed to reset cache");
     } finally {
       setIsResetCacheLoading(false);
     }

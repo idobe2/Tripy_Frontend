@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
-import { View, StyleSheet, ToastAndroid, Text } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
+import { showSuccessToast } from "../utils/toast";
 import Button from "../components/Button";
 import Header from "../components/Header";
 import Paragraph from "../components/Paragraph";
@@ -158,7 +159,7 @@ const Planner = ({ navigation }) => {
             trip: enrichedPlan,
             image: destinationImage,
           });
-          ToastAndroid.show("Plan created successfully", ToastAndroid.SHORT);
+          showSuccessToast("Plan created successfully");
         } else {
           alert("Failed to fetch the created plan details");
         }

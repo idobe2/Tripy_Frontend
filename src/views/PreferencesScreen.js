@@ -5,9 +5,9 @@ import {
   TouchableOpacity,
   StyleSheet,
   ScrollView,
-  ToastAndroid,
   BackHandler,
 } from "react-native";
+import { showSuccessToast } from "../utils/toast";
 import { Ionicons } from "@expo/vector-icons";
 import Button from "../components/Button";
 import { theme } from "../core/theme";
@@ -15,7 +15,7 @@ import userApi from "../api/UserApi";
 import AnimatedLogo from "../common/AnimatedLogo";
 import HomeBackground from "../components/HomeBackground";
 import Paragraph from "../components/Paragraph";
-import { useFocusEffect } from '@react-navigation/native';
+import { useFocusEffect } from "@react-navigation/native";
 
 const Preferences = ({ route, navigation }) => {
   const { screenType } = route.params;
@@ -80,7 +80,7 @@ const Preferences = ({ route, navigation }) => {
       console.log(err);
     } finally {
       setIsLoading(false);
-      ToastAndroid.show("Preferences saved!", ToastAndroid.SHORT);
+      showSuccessToast("Preferences saved!");
     }
   };
 
@@ -91,7 +91,6 @@ const Preferences = ({ route, navigation }) => {
       </View>
     );
   }
-
 
   const preferenceIcons = {
     Beach: "sunny-outline",
@@ -119,35 +118,37 @@ const Preferences = ({ route, navigation }) => {
     <HomeBackground>
       <View style={styles.container}>
         <Paragraph style={{ marginTop: 20, bottom: 20 }}>
-          To tailor the best trip for you,{"\n"}we'd love to know more about you 😊{"\n"}What do you like?
+          To tailor the best trip for you,{"\n"}we'd love to know more about you
+          😊{"\n"}What do you like?
         </Paragraph>
         <ScrollView style={styles.scrollView}>
           {[
-             "Beach",
-             "Mountains",
-             "City",
-             "Nature",
-             "History",
-             "Adventure",
-             "Relaxation",
-             "Food and Drinks",
-             "Art",
-             "Music",
-             "Shopping",
-             "Sports",
-             "Technology",
-             "Wildlife",
-             "Nightlife",
-             "Wellness",
-             "Photography",
-             "Theater",
-             "Literature",
+            "Beach",
+            "Mountains",
+            "City",
+            "Nature",
+            "History",
+            "Adventure",
+            "Relaxation",
+            "Food and Drinks",
+            "Art",
+            "Music",
+            "Shopping",
+            "Sports",
+            "Technology",
+            "Wildlife",
+            "Nightlife",
+            "Wellness",
+            "Photography",
+            "Theater",
+            "Literature",
           ].map((preference, index) => (
             <TouchableOpacity
               key={index}
               style={[
                 styles.button,
-                selectedPreferences.includes(preference) && styles.selectedButton,
+                selectedPreferences.includes(preference) &&
+                  styles.selectedButton,
               ]}
               onPress={() => handlePreferencePress(preference)}
             >

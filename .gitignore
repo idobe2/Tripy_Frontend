@@ -17,3 +17,8 @@ src/core/**/*
 yarn.lock
 .expo-shared
 src/core/config.js
+
+# android and ios build files
+ios/
+android/
+

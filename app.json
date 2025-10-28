@@ -18,26 +18,17 @@
       "**/*"
     ],
     "ios": {
-      "bundleIdentifier": "com.bar3668.tripy",
-      "supportsTablet": true,
-      "infoPlist": {
-        "CFBundleURLTypes": [
+      "privacyManifests": {
+        "NSPrivacyAccessedAPITypes": [
           {
-            "CFBundleURLSchemes": [
-              "com.googleusercontent.apps.826066565685-t63uo6nniv485th5r427p2c6r6lvggdm"
+            "NSPrivacyAccessedAPIType": "NSPrivacyAccessedAPICategoryUserDefaults",
+            "NSPrivacyAccessedAPITypeReasons": [
+              "CA92.1"
             ]
           }
-        ],
-        "NSUserTrackingUsageDescription": "This identifier will be used to deliver personalized ads to you.",
-        "SKAdNetworkItems": [
-          {
-            "SKAdNetworkIdentifier": "v9wttpbfk9.skadnetwork"
-          },
-          {
-            "SKAdNetworkIdentifier": "n38lu8286q.skadnetwork"
-          }
         ]
-      }
+      },
+      "bundleIdentifier": "com.bar3668.tripy"
     },
     "android": {
       "adaptiveIcon": {

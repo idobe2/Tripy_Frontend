@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useRef  } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import {
   View,
   Text,
@@ -8,8 +8,8 @@ import {
   Alert,
   Image,
   ActivityIndicator,
-  ToastAndroid,
 } from "react-native";
+import { showSuccessToast, showErrorToast } from "../utils/toast";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import RNCalendarEvents from "react-native-calendar-events";
 import { Menu, Provider } from "react-native-paper";
@@ -42,7 +42,7 @@ export default function PlanDetailsScreen({ route, navigation }) {
   const [menuVisible, setMenuVisible] = useState(false);
   const [value, setValue] = useState(null);
   const [items, setItems] = useState([]);
-  const { setPlansChanged } = useContext(PlansContext); 
+  const { setPlansChanged } = useContext(PlansContext);
   const swipeableRefs = useRef(new Map()); // Add a reference to store swipeable components
 
   useEffect(() => {
@@ -56,10 +56,7 @@ export default function PlanDetailsScreen({ route, navigation }) {
       if (status === "authorized") {
         fetchCalendars();
       } else {
-        ToastAndroid.show(
-          "Calendar permission is required to add events",
-          ToastAndroid.SHORT
-        );
+        showErrorToast("Calendar permission is required to add events");
       }
     } catch (error) {
       console.error("Error requesting calendar permissions: ", error);
@@ -188,11 +185,15 @@ export default function PlanDetailsScreen({ route, navigation }) {
               updatedTravelPlan[dayIndex].activities.splice(activityIndex, 1);
 
               // Remove the day if it has no activities
-              if (updatedTravelPlan[dayIndex].activities.length === 0){
+              if (updatedTravelPlan[dayIndex].activities.length === 0) {
                 updatedTravelPlan.splice(dayIndex, 1);
-                setActivitiesDetails(activitiesDetails.filter((detail) => detail.place_id !== activity.place_id));
+                setActivitiesDetails(
+                  activitiesDetails.filter(
+                    (detail) => detail.place_id !== activity.place_id
+                  )
+                );
               }
-                
+
               // Rebuild the activitiesDetails array based on updated travelPlan
               const newActivitiesDetails = [];
               for (const day of updatedTravelPlan) {
@@ -212,24 +213,20 @@ export default function PlanDetailsScreen({ route, navigation }) {
               // Also update the trip object itself if needed elsewhere
               trip.travelPlan = updatedTravelPlan;
 
-              const swipeableRow = swipeableRefs.current.get(`${dayIndex}-${activityIndex}`);
+              const swipeableRow = swipeableRefs.current.get(
+                `${dayIndex}-${activityIndex}`
+              );
               if (swipeableRow) {
                 swipeableRow.close();
               }
 
               // Show a success toast
-              ToastAndroid.show(
-                "Activity deleted successfully",
-                ToastAndroid.SHORT
-              );
+              showSuccessToast("Activity deleted successfully");
               // console.log("Activities Details:", newActivitiesDetails);
               // console.log("Updated Travel Plan:", updatedTravelPlan);
             } catch (error) {
               console.error("Error deleting activity:", error);
-              ToastAndroid.show(
-                "Failed to delete activity",
-                ToastAndroid.SHORT
-              );
+              showErrorToast("Failed to delete activity");
             }
             setLoading(false);
             setPlansChanged(true);
@@ -347,10 +344,7 @@ export default function PlanDetailsScreen({ route, navigation }) {
 
   const addAllActivitiesToCalendar = async () => {
     if (!selectedCalendar) {
-      ToastAndroid.show(
-        "No Calendar Selected, Please select a calendar first.",
-        ToastAndroid.SHORT
-      );
+      showErrorToast("No Calendar Selected, Please select a calendar first.");
       return;
     }
 
@@ -387,21 +381,16 @@ export default function PlanDetailsScreen({ route, navigation }) {
         const successfulEvents = results.filter(
           (result) => result !== null
         ).length;
-        ToastAndroid.show(
-          `${successfulEvents} activities have been added to your calendar`,
-          ToastAndroid.SHORT
+        showSuccessToast(
+          `${successfulEvents} activities have been added to your calendar`
         );
       } else {
-        ToastAndroid.show(
-          "Calendar permission is required to add events",
-          ToastAndroid.SHORT
-        );
+        showErrorToast("Calendar permission is required to add events");
       }
     } catch (error) {
       console.error("Error adding all activities to calendar: ", error);
-      ToastAndroid.show(
-        "An error occurred while adding activities to the calendar",
-        ToastAndroid.SHORT
+      showErrorToast(
+        "An error occurred while adding activities to the calendar"
       );
     }
   };
@@ -523,7 +512,11 @@ export default function PlanDetailsScreen({ route, navigation }) {
         newActivity
       );
       console.log("Add Meal Response:", response);
-      trip.travelPlan[dayIndex].activities.splice(activityIndex + 1, 0, newActivity);
+      trip.travelPlan[dayIndex].activities.splice(
+        activityIndex + 1,
+        0,
+        newActivity
+      );
     }
     await fetchActivitiesDetails();
     setBottomSheetVisible(false);

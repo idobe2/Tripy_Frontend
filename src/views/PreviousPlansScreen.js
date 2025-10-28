@@ -8,8 +8,8 @@ import {
   Alert,
   RefreshControl,
   TextInput,
-  ToastAndroid,
 } from "react-native";
+import { showSuccessToast, showErrorToast } from "../utils/toast";
 import { MaterialIcons, Ionicons } from "@expo/vector-icons";
 import Header from "../components/Header";
 import Paragraph from "../components/Paragraph";
@@ -70,7 +70,7 @@ export default function PreviousPlans({ navigation }) {
       if (error.response && error.response.status === 404) {
         setApiError(true);
       }
-      ToastAndroid.show("Failed to fetch plans", ToastAndroid.SHORT);
+      showErrorToast("Failed to fetch plans");
       console.error("Error fetching plans:", error);
     }
     setLoading(false);
@@ -99,10 +99,7 @@ export default function PreviousPlans({ navigation }) {
     if (loading) {
       timeout = setTimeout(() => {
         if (loading) {
-          ToastAndroid.show(
-            "Server is taking too long to respond",
-            ToastAndroid.SHORT
-          );
+          showErrorToast("Server is taking too long to respond");
           setLoading(false);
         }
       }, 20000);
@@ -166,10 +163,7 @@ export default function PreviousPlans({ navigation }) {
                 JSON.stringify(updatedPlans)
               );
               fetchData();
-              ToastAndroid.show(
-                "Plan deleted successfully",
-                ToastAndroid.SHORT
-              );
+              showSuccessToast("Plan deleted successfully");
             }
           },
         },
@@ -198,7 +192,7 @@ export default function PreviousPlans({ navigation }) {
             setSelectedPlans([]);
             setIsSelectionMode(false);
             fetchData();
-            ToastAndroid.show("Plans deleted successfully", ToastAndroid.SHORT);
+            showSuccessToast("Plans deleted successfully");
           },
         },
       ],
